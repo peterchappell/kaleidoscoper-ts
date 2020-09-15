@@ -7,10 +7,10 @@ type FooterProps = {
 const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   const { setPhotoHandler } = props;
 
-  const selectRandomPhoto = () => {
+  const selectRandomPhoto = (): void => {
     const photoEl = new Image();
     photoEl.crossOrigin = "Anonymous";
-    photoEl.onload = () => {
+    photoEl.onload = (): void => {
       const canvasEl: HTMLCanvasElement = document.createElement("canvas");
       canvasEl.height = photoEl.naturalHeight;
       canvasEl.width = photoEl.naturalWidth;

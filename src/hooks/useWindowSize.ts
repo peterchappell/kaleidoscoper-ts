@@ -17,7 +17,7 @@ function useWindowSize(): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>(getSize);
 
   useEffect(() => {
-    function handleResize() {
+    function handleResize(): void {
       setWindowSize(getSize());
     }
 
@@ -25,7 +25,7 @@ function useWindowSize(): WindowSize {
 
     handleResize();
 
-    return () => window.removeEventListener("resize", handleResize);
+    return (): void => window.removeEventListener("resize", handleResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
