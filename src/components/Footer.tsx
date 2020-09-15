@@ -20,7 +20,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
         setPhotoHandler(canvasEl.toDataURL());
       }
     };
-    photoEl.src = "https://source.unsplash.com/random/800x800";
+    photoEl.src = "https://source.unsplash.com/random/1600x1600";
   };
 
   return (
