@@ -1,7 +1,8 @@
 import React from "react";
+import { PhotoData } from "./Main";
 
 type FooterProps = {
-  setPhotoHandler: (photo: string) => void;
+  setPhotoHandler: (photoData: PhotoData) => void;
 };
 
 const Footer: React.FC<FooterProps> = (props: FooterProps) => {
@@ -17,10 +18,12 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
       const ctx: CanvasRenderingContext2D | null = canvasEl.getContext("2d");
       if (ctx) {
         ctx.drawImage(photoEl, 0, 0);
-        setPhotoHandler(canvasEl.toDataURL());
+        setPhotoHandler({
+          src: canvasEl.toDataURL(),
+        });
       }
     };
-    photoEl.src = "https://source.unsplash.com/random/2400x2400";
+    photoEl.src = "https://picsum.photos/2400";
   };
 
   return (
