@@ -31,11 +31,16 @@ function useCanvasPointerEventPosition(
         });
       }
     }
-    function startDrag() {
+    function startDrag(): void {
       setIsDragging(true);
     }
-    function endDrag() {
+    function endDrag(): void {
       setIsDragging(false);
+    }
+    function handleMouseEnterEvent(event: MouseEvent): void {
+      if (event.buttons) {
+        setIsDragging(true);
+      }
     }
 
     if (canvasEl) {
@@ -43,8 +48,9 @@ function useCanvasPointerEventPosition(
       canvasEl.addEventListener("touchstart", startDrag);
       canvasEl.addEventListener("mouseup", endDrag);
       canvasEl.addEventListener("touchend", endDrag);
-      canvasEl.addEventListener("mouseout", endDrag);
+      canvasEl.addEventListener("mouseleave", endDrag);
       canvasEl.addEventListener("touchcancel", endDrag);
+      canvasEl.addEventListener("mouseenter", handleMouseEnterEvent);
       canvasEl.addEventListener("mousemove", handleMouseEvent);
       canvasEl.addEventListener("touchmove", handleTouchEvent);
     }
@@ -55,8 +61,9 @@ function useCanvasPointerEventPosition(
         canvasEl.removeEventListener("mousedown", startDrag);
         canvasEl.removeEventListener("mouseup", endDrag);
         canvasEl.removeEventListener("touchend", endDrag);
-        canvasEl.removeEventListener("mouseout", endDrag);
+        canvasEl.removeEventListener("mouseleave", endDrag);
         canvasEl.removeEventListener("touchcancel", endDrag);
+        canvasEl.removeEventListener("mouseenter", handleMouseEnterEvent);
         canvasEl.removeEventListener("mousemove", handleMouseEvent);
         canvasEl.removeEventListener("touchmove", handleTouchEvent);
       }
