@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 type Position = {
-  x: number | undefined;
-  y: number | undefined;
+  x: number;
+  y: number;
 };
 
 function useCanvasPointerEventPosition(
@@ -41,8 +41,10 @@ function useCanvasPointerEventPosition(
     if (canvasEl) {
       canvasEl.addEventListener("mousedown", startDrag);
       canvasEl.addEventListener("touchstart", startDrag);
-      canvasEl.addEventListener("mouseUp", endDrag);
+      canvasEl.addEventListener("mouseup", endDrag);
       canvasEl.addEventListener("touchend", endDrag);
+      canvasEl.addEventListener("mouseout", endDrag);
+      canvasEl.addEventListener("touchcancel", endDrag);
       canvasEl.addEventListener("mousemove", handleMouseEvent);
       canvasEl.addEventListener("touchmove", handleTouchEvent);
     }
@@ -51,8 +53,10 @@ function useCanvasPointerEventPosition(
       if (canvasEl) {
         canvasEl.removeEventListener("touchstart", startDrag);
         canvasEl.removeEventListener("mousedown", startDrag);
-        canvasEl.removeEventListener("mouseUp", endDrag);
+        canvasEl.removeEventListener("mouseup", endDrag);
         canvasEl.removeEventListener("touchend", endDrag);
+        canvasEl.removeEventListener("mouseout", endDrag);
+        canvasEl.removeEventListener("touchcancel", endDrag);
         canvasEl.removeEventListener("mousemove", handleMouseEvent);
         canvasEl.removeEventListener("touchmove", handleTouchEvent);
       }
