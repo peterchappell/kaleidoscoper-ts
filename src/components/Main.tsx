@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 import useMaxSizeStyle from "../hooks/useMaxSizeStyle";
+import useCanvasPointerEventPosition from "../hooks/useCanvasPointerEventPosition";
 
 type MainProps = {
   photo: string;
@@ -9,6 +10,11 @@ type MainProps = {
 const Main: React.FC<MainProps> = ({ photo }: MainProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const maxSizeStyle = useMaxSizeStyle();
+  const mousePosition = useCanvasPointerEventPosition(canvasRef.current);
+
+  useEffect(() => {
+    console.log("mouse position", mousePosition.x, mousePosition.y);
+  }, [mousePosition.x, mousePosition.y]);
 
   useEffect(() => {
     const photoEl = new Image();
