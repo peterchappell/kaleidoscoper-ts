@@ -34,10 +34,12 @@ function useKaleidoscopeCanvas(
   useEffect(() => {
     const photoEl = new Image();
     photoEl.src = photoSrc;
-    setPhotoData({
-      element: photoEl,
-      width: photoEl.width || 600,
-      height: photoEl.height || 600,
+    photoEl.addEventListener("load", (): void => {
+      setPhotoData({
+        element: photoEl,
+        width: photoEl.width || 600,
+        height: photoEl.height || 600,
+      });
     });
   }, [photoSrc]);
 

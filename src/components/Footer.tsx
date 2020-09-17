@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { PhotoData } from "./Main";
 
+import LoadFile from "./LoadFile";
+import { ReactComponent as Random } from "../images/shuffle.svg";
 import useRandomPhoto from "../hooks/useRandomPhoto";
 
 type FooterProps = {
@@ -28,10 +30,19 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
   }, [error, setErrorHandler]);
 
   return (
-    <footer className="p-3 sm:p-6 bg-black flex justify-center">
-      <button type="button" onClick={fetchPhoto}>
-        Select random photo
+    <footer className="bg-black grid-cols-2 grid">
+      <button
+        type="button"
+        onClick={fetchPhoto}
+        className="p-3 text-xs focus:outline-none focus:bg-gray-800"
+      >
+        <Random className="text-white w-6 h-6 fill-current m-auto" />
+        Random
       </button>
+      <LoadFile
+        setPhotoHandler={setPhotoHandler}
+        setIsLoading={setIsLoadingHandler}
+      />
     </footer>
   );
 };
