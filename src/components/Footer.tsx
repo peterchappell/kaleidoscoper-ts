@@ -42,6 +42,7 @@ const Footer: React.FC<FooterProps> = (props: FooterProps) => {
       <LoadFile
         setPhotoHandler={setPhotoHandler}
         setIsLoading={setIsLoadingHandler}
+        setError={setErrorHandler}
       />
     </footer>
   );

@@ -5,10 +5,11 @@ import { ReactComponent as Camera } from "../images/camera.svg";
 type Props = {
   setPhotoHandler: (photoData: PhotoData) => void;
   setIsLoading: (isLoading: boolean) => void;
+  setError: (isError: boolean) => void;
 };
 
 const LoadFile: React.FC<Props> = (props: Props) => {
-  const { setPhotoHandler, setIsLoading } = props;
+  const { setPhotoHandler, setIsLoading, setError } = props;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,6 +32,7 @@ const LoadFile: React.FC<Props> = (props: Props) => {
             src: imageSrc,
           });
           setIsLoading(false);
+          setError(false);
         }
       };
     }
