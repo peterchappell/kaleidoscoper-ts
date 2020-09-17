@@ -30,6 +30,7 @@ function useKaleidoscopeCanvas(
     width: 0,
     height: 0,
   });
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null>();
 
   useEffect(() => {
     const photoEl = new Image();
@@ -44,11 +45,17 @@ function useKaleidoscopeCanvas(
   }, [photoSrc]);
 
   useEffect(() => {
-    if (!canvasEl || !photoData.element) {
+    if (!canvasEl) {
       return;
     }
 
-    const ctx = canvasEl.getContext("2d");
+    setCtx(canvasEl.getContext("2d"));
+  }, [canvasEl]);
+
+  useEffect(() => {
+    if (!canvasEl || !photoData.element || !ctx) {
+      return;
+    }
 
     // x and y co-ordinates of the photo are in the top left corner by default
     // But the x and y co-ordinates of the photo use the mouse co-ordinates
@@ -259,6 +266,7 @@ function useKaleidoscopeCanvas(
     photoData.width,
     photoData.height,
     canvasEl,
+    ctx,
   ]);
 }
 
