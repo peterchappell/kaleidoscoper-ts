@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef } from "react";
 import { PhotoData } from "./Main";
-import { ReactComponent as File } from "../images/folder-outline.svg";
+import { ReactComponent as Camera } from "../images/camera.svg";
 
 type Props = {
   setPhotoHandler: (photoData: PhotoData) => void;
@@ -42,8 +42,8 @@ const LoadFile: React.FC<Props> = (props: Props) => {
         htmlFor="load_file"
         className="p-3 text-xs block text-center cursor-pointer"
       >
-        <File className="text-white w-6 h-6 fill-current m-auto" />
-        File
+        <Camera className="text-white w-6 h-6 fill-current m-auto" />
+        Photo
         <input
           type="file"
           id="load_file"
@@ -51,7 +51,6 @@ const LoadFile: React.FC<Props> = (props: Props) => {
           ref={fileInputRef}
           accept="image/*"
           onChange={handleFile}
-          capture={false}
         />
       </label>
     </div>
