@@ -20,7 +20,7 @@ const LoadFile: React.FC<Props> = (props: Props) => {
     setIsLoading(true);
     const file = event.target.files[0];
 
-    if (file.type.match("image.*")) {
+    if (file && file.type.match("image.*")) {
       const reader = new FileReader();
       let imageSrc;
 
@@ -35,6 +35,8 @@ const LoadFile: React.FC<Props> = (props: Props) => {
           setError(false);
         }
       };
+    } else {
+      setIsLoading(false);
     }
   };
 
