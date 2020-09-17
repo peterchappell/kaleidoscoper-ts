@@ -36,8 +36,8 @@ function useKaleidoscopeCanvas(
     photoEl.src = photoSrc;
     setPhotoData({
       element: photoEl,
-      width: photoEl.width,
-      height: photoEl.height,
+      width: photoEl.width || 600,
+      height: photoEl.height || 600,
     });
   }, [photoSrc]);
 

@@ -5,30 +5,27 @@ import useRandomPhoto from "../hooks/useRandomPhoto";
 
 type FooterProps = {
   setPhotoHandler: (photoData: PhotoData) => void;
+  setErrorHandler: (errorMessage: boolean) => void;
+  setIsLoadingHandler: (isLoading: boolean) => void;
 };
 
 const Footer: React.FC<FooterProps> = (props: FooterProps) => {
-  const { setPhotoHandler } = props;
+  const { setPhotoHandler, setErrorHandler, setIsLoadingHandler } = props;
   const { fetchPhoto, photoData, error, isLoading } = useRandomPhoto();
 
   useEffect(() => {
-    console.log("photoData", photoData);
     if (photoData) {
       setPhotoHandler(photoData);
     }
   }, [photoData, setPhotoHandler]);
 
   useEffect(() => {
-    if (isLoading) {
-      console.log("TODO: loading...");
-    }
-  }, [isLoading]);
+    setIsLoadingHandler(isLoading);
+  }, [isLoading, setIsLoadingHandler]);
 
   useEffect(() => {
-    if (error) {
-      console.log("TODO: Handle error", error);
-    }
-  }, [error]);
+    setErrorHandler(!!error);
+  }, [error, setErrorHandler]);
 
   return (
     <footer className="p-3 sm:p-6 bg-black flex justify-center">

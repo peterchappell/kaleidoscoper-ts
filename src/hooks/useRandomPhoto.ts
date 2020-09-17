@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PhotoData } from "../components/Main";
+import errorImage from "../images/error";
 
 type RandomPhotoHook = {
   fetchPhoto: () => void;
@@ -13,7 +14,7 @@ function useRandomPhoto(): RandomPhotoHook {
   const [error, setError] = useState<Error | null>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchPhoto = async () => {
+  const fetchPhoto = async (): Promise<void> => {
     setIsLoading(true);
     setError(null);
     try {
@@ -23,7 +24,7 @@ function useRandomPhoto(): RandomPhotoHook {
       const reader = new FileReader();
       let imageSrc;
       reader.readAsDataURL(imageBlob);
-      reader.onloadend = () => {
+      reader.onloadend = (): void => {
         imageSrc = reader.result;
         if (imageSrc && typeof imageSrc === "string") {
           setPhotoData({
@@ -32,19 +33,24 @@ function useRandomPhoto(): RandomPhotoHook {
           setIsLoading(false);
         }
       };
-      const infoResponse = await fetch(
-        `https://picsum.photos/id/${photoId}/info`
-      );
-      const photoInfo = await infoResponse.json();
-      if (imageSrc && typeof imageSrc === "string") {
-        setPhotoData({
-          src: imageSrc,
-          url: photoInfo.url,
-        });
+      if (photoId) {
+        const infoResponse = await fetch(
+          `https://picsum.photos/id/${photoId}/info`
+        );
+        const photoInfo = await infoResponse.json();
+        if (imageSrc && typeof imageSrc === "string") {
+          setPhotoData({
+            src: imageSrc,
+            url: photoInfo.url,
+          });
+        }
       }
     } catch (requestError) {
       setError(requestError);
       setIsLoading(false);
+      setPhotoData({
+        src: errorImage,
+      });
     }
   };
 
