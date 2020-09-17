@@ -5,6 +5,7 @@ import useKaleidoscopeCanvas from "../hooks/useKaleidoscopeCanvas";
 
 export type PhotoData = {
   src: string;
+  url?: string;
 };
 
 type MainProps = {
