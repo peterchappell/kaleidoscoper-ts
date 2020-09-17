@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Download from "./Download";
+import { ReactComponent as KaleidoscoperLogo } from "../images/kaleidoscoper-logo.svg";
 
 type Props = {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -18,7 +19,10 @@ const Header: React.FC<Props> = (props: Props) => {
 
   return (
     <header className="p-3 bg-black flex justify-between items-center">
-      <h1 className="font-bold">Kaleidoscoper</h1>
+      <div className="flex items-center">
+        <KaleidoscoperLogo className="w-10 h-10 mr-2" />
+        <h1 className="font-bold text-xl">Kaleidoscoper</h1>
+      </div>
       {hasDownloadSupport && (
         <Download canvasRef={canvasRef} isLoading={isLoading} />
       )}
