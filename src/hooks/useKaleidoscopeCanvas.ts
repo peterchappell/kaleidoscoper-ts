@@ -22,7 +22,9 @@ type Segment = {
 
 function useKaleidoscopeCanvas(
   canvasEl: HTMLCanvasElement | null,
-  photoSrc: string
+  photoSrc: string,
+  width: number,
+  height: number
 ): void {
   const mousePosition = useCanvasPointerEventPosition(canvasEl);
   const [photoData, setPhotoData] = useState<PhotoData>({
@@ -267,6 +269,8 @@ function useKaleidoscopeCanvas(
     photoData.height,
     canvasEl,
     ctx,
+    width,
+    height,
   ]);
 }
 

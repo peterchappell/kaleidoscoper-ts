@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
 type WindowSize = {
-  width: number | undefined;
-  height: number | undefined;
+  width: number;
+  height: number;
 };
 
 function useWindowSize(): WindowSize {

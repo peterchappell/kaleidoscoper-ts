@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import useMaxSizeStyle from "../hooks/useMaxSizeStyle";
+import useWindowSize from "../hooks/useWindowSize";
 import useKaleidoscopeCanvas from "../hooks/useKaleidoscopeCanvas";
 
 export type PhotoData = {
@@ -12,21 +12,39 @@ type MainProps = {
   photoData: PhotoData;
 };
 
+type SizeStyle = {
+  width: string;
+  height: string;
+};
+
 const Main = React.forwardRef<React.RefObject<HTMLCanvasElement>, MainProps>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (props: MainProps, ref: any) => {
     const { photoData } = props;
-    const maxSizeStyle = useMaxSizeStyle();
-    useKaleidoscopeCanvas(ref.current, photoData.src);
+
+    const [maxStyle, setMaxStyle] = useState<SizeStyle>({
+      width: "100vw",
+      height: "100vw",
+    });
+    const size = useWindowSize();
+    useKaleidoscopeCanvas(ref.current, photoData.src, size.width, size.height);
+
+    useEffect(() => {
+      if (!size.width || !size.height || size.width > size.height) {
+        setMaxStyle({ width: "100vw", height: "100vw" });
+      } else {
+        setMaxStyle({ width: "100vh", height: "100vh" });
+      }
+    }, [size.width, size.height]);
 
     return (
       <main className="flex justify-center items-center flex-grow overflow-hidden relative">
         {photoData.src && <img src={photoData.src} alt="" className="hidden" />}
         <canvas
-          height={2400}
-          width={2400}
+          height={Math.max(size.width, size.height)}
+          width={Math.max(size.width, size.height)}
           ref={ref}
-          style={maxSizeStyle}
+          style={maxStyle}
           className="absolute"
         />
       </main>
