@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const [installPromptEvent, setInstallPromptEvent] = useState<any>();
   const [isInstallStarted, setIsInstallStarted] = useState(false);
 
-  const installHandler = () => {
+  const installHandler = (): void => {
     if (installPromptEvent) {
       installPromptEvent.prompt();
       setIsInstallStarted(true);
@@ -61,7 +61,7 @@ const Header: React.FC = () => {
           </a>
           . If you&apos;re so inclined, you can look at its{" "}
           <a
-            href="https://github.com/peterchappell/kaleidoscoper"
+            href="https://github.com/peterchappell/kaleidoscoper-ts"
             target="_blank"
             rel="noopener noreferrer"
             className="text-green-700 hover:text-green-600"
