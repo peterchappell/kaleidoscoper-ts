@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Modal from "./Modal";
 
@@ -6,6 +6,18 @@ import { ReactComponent as KaleidoscoperLogo } from "../images/kaleidoscoper-log
 
 const Header: React.FC = () => {
   const [isAboutShowing, setIsAboutShowing] = useState(false);
+  // TODO: Figure out how to extend the Event type so that is includes the prompt method.
+  // Should really be using an Event type rather than "any" here.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [installPromptEvent, setInstallPromptEvent] = useState<any>();
+  const [isInstallStarted, setIsInstallStarted] = useState(false);
+
+  const installHandler = () => {
+    if (installPromptEvent) {
+      installPromptEvent.prompt();
+      setIsInstallStarted(true);
+    }
+  };
 
   const openModal = (): void => {
     setIsAboutShowing(true);
@@ -14,6 +26,13 @@ const Header: React.FC = () => {
   const closeModal = (): void => {
     setIsAboutShowing(false);
   };
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      setInstallPromptEvent(event);
+    });
+  }, []);
 
   return (
     <header className="p-3 bg-black flex justify-between items-center">
@@ -51,6 +70,20 @@ const Header: React.FC = () => {
           </a>
           .
         </p>
+        {!!installPromptEvent && !isInstallStarted && (
+          <div className="bg-gray-200 rounded-md border-gray-400 border-2 border-solid p-4 mt-4">
+            <p className="mb-4 font-semibold text-sm">
+              Access Kaleidoscoper more easily by installing it as a free app!
+            </p>
+            <button
+              onClick={installHandler}
+              type="button"
+              className=" bg-green-700 text-white rounded-full py-2 px-4"
+            >
+              Install Kaleidoscoper
+            </button>
+          </div>
+        )}
         <h3 className="mt-4 mb-2 text-xs font-semibold">
           A note about privacy
         </h3>

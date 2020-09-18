@@ -24,7 +24,7 @@ const Modal: React.FC<Props> = (props: Props) => {
       <aside className="bg-white rounded-md text-black z-50 m-2 max-w-full sm:max-w-sm">
         <div className="h-full flex flex-col justify-between">
           <div className="overflow-y-auto flex-grow p-4">{children}</div>
-          <footer className="flex flex-row justify-end bg-gray-300 p-4 rounded-b-md">
+          <footer className="flex flex-row justify-end bg-gray-200 p-4 rounded-b-md border-t-2 border-gray-400 border-solid">
             <button type="button" onClick={closeHandler}>
               Close
             </button>
