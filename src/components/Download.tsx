@@ -2,20 +2,19 @@ import React, { useState, useRef, useEffect, MouseEvent } from "react";
 import { ReactComponent as DownloadIcon } from "../images/download.svg";
 
 type Props = {
-  canvasRef: React.RefObject<HTMLCanvasElement>;
-  isLoading: boolean;
+  canvasEl: HTMLCanvasElement | null;
 };
 
 const Download: React.FC<Props> = (props: Props) => {
-  const { canvasRef, isLoading } = props;
+  const { canvasEl } = props;
   const [saveHref, setSaveHref] = useState("");
   const downloadLinkRef = useRef<HTMLAnchorElement>(null);
 
   const saveCanvas = (event: MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    if (canvasRef && canvasRef.current) {
+    if (canvasEl) {
       try {
-        setSaveHref(canvasRef.current.toDataURL("image/jpeg"));
+        setSaveHref(canvasEl.toDataURL("image/jpeg"));
       } catch (error) {
         setSaveHref("");
       }
@@ -29,18 +28,16 @@ const Download: React.FC<Props> = (props: Props) => {
   }, [saveHref]);
 
   return (
-    <div
-      className={`${
-        isLoading ? "opacity-0" : "opacity-100"
-      } transition-opacity duration-500 ease-in-out`}
-    >
+    <div>
       <button
         type="button"
-        className="p-3 text-xs focus:outline-none focus:bg-gray-800 flex items-center"
+        className="w-12 h-12 rounded-full bg-black bg-opacity-50 focus:outline-none focus:bg-opacity-75 flex items-center justify-center"
         onClick={saveCanvas}
       >
-        Save
-        <DownloadIcon className="text-white w-4 h-4 fill-current m-auto ml-2" />
+        <DownloadIcon
+          className="text-white w-6 h-6 fill-current m-auto"
+          title="Save"
+        />
       </button>
       <a
         ref={downloadLinkRef}

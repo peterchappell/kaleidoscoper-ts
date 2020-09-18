@@ -14,16 +14,15 @@ const App: React.FC = () => {
   });
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const canvasRef = React.useRef(null);
 
   useRandomPhotoOnLoad(setPhotoData, setIsError, setIsLoading);
 
   return (
     <section className="h-full max-h-full flex flex-col">
-      <Header canvasRef={canvasRef} isLoading={isLoading} />
+      <Header />
       {isLoading && <Loading />}
       {isError && <Error />}
-      <Main photoData={photoData} ref={canvasRef} />
+      <Main photoData={photoData} />
       <Footer
         setPhotoHandler={setPhotoData}
         setErrorHandler={setIsError}

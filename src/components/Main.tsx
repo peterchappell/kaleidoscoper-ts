@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
+import Download from "./Download";
 import useWindowSize from "../hooks/useWindowSize";
 import useKaleidoscopeCanvas from "../hooks/useKaleidoscopeCanvas";
 
@@ -17,39 +18,55 @@ type SizeStyle = {
   height: string;
 };
 
-const Main = React.forwardRef<React.RefObject<HTMLCanvasElement>, MainProps>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (props: MainProps, ref: any) => {
-    const { photoData } = props;
+const Main: React.FC<MainProps> = (props: MainProps) => {
+  const { photoData } = props;
 
-    const [maxStyle, setMaxStyle] = useState<SizeStyle>({
-      width: "100vw",
-      height: "100vw",
-    });
-    const size = useWindowSize();
-    useKaleidoscopeCanvas(ref.current, photoData.src, size.width, size.height);
+  const [maxStyle, setMaxStyle] = useState<SizeStyle>({
+    width: "100vw",
+    height: "100vw",
+  });
+  const [hasDownloadSupport, setHasDownloadSupport] = useState(true);
+  const size = useWindowSize();
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  useKaleidoscopeCanvas(
+    canvasRef.current,
+    photoData.src,
+    size.width,
+    size.height
+  );
 
-    useEffect(() => {
-      if (!size.width || !size.height || size.width > size.height) {
-        setMaxStyle({ width: "100vw", height: "100vw" });
-      } else {
-        setMaxStyle({ width: "100vh", height: "100vh" });
-      }
-    }, [size.width, size.height]);
+  useEffect(() => {
+    if (!size.width || !size.height || size.width > size.height) {
+      setMaxStyle({ width: "100vw", height: "100vw" });
+    } else {
+      setMaxStyle({ width: "100vh", height: "100vh" });
+    }
+  }, [size.width, size.height]);
 
-    return (
-      <main className="flex justify-center items-center flex-grow overflow-hidden relative">
-        {photoData.src && <img src={photoData.src} alt="" className="hidden" />}
+  useEffect(() => {
+    const a = document.createElement("a");
+    setHasDownloadSupport(typeof a.download !== "undefined");
+  }, []);
+
+  return (
+    <main className="flex-grow">
+      {photoData.src && (
+        <img src={photoData.src} alt="" className="hidden" aria-hidden="true" />
+      )}
+      <figure className="h-full w-full relative flex justify-center items-center overflow-hidden">
         <canvas
           height={Math.max(size.width, size.height)}
           width={Math.max(size.width, size.height)}
-          ref={ref}
+          ref={canvasRef}
           style={maxStyle}
-          className="absolute"
+          className="absolute z-10"
         />
-      </main>
-    );
-  }
-);
+        <figcaption className="absolute right-0 top-0 z-20 flex mt-2 mr-2">
+          {hasDownloadSupport && <Download canvasEl={canvasRef.current} />}
+        </figcaption>
+      </figure>
+    </main>
+  );
+};
 
 export default Main;
