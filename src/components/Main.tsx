@@ -11,6 +11,7 @@ export type PhotoData = {
 
 type MainProps = {
   photoData: PhotoData;
+  isLoading: boolean;
 };
 
 type SizeStyle = {
@@ -19,7 +20,7 @@ type SizeStyle = {
 };
 
 const Main: React.FC<MainProps> = (props: MainProps) => {
-  const { photoData } = props;
+  const { photoData, isLoading } = props;
 
   const [maxStyle, setMaxStyle] = useState<SizeStyle>({
     width: "100vw",
@@ -53,7 +54,11 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
       {photoData.src && (
         <img src={photoData.src} alt="" className="hidden" aria-hidden="true" />
       )}
-      <figure className="h-full w-full relative flex justify-center items-center overflow-hidden">
+      <figure
+        className={`h-full w-full relative flex justify-center items-center overflow-hidden ${
+          isLoading ? "opacity-0" : "opacity-100"
+        } transition-opacity duration-500 ease-in-out`}
+      >
         <canvas
           height={Math.max(size.width, size.height)}
           width={Math.max(size.width, size.height)}

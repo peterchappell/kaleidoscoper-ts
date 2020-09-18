@@ -22,7 +22,7 @@ const App: React.FC = () => {
       <Header />
       {isLoading && <Loading />}
       {isError && <Error />}
-      <Main photoData={photoData} />
+      <Main photoData={photoData} isLoading={isLoading} />
       <Footer
         setPhotoHandler={setPhotoData}
         setErrorHandler={setIsError}
