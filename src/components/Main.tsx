@@ -29,7 +29,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   const [hasDownloadSupport, setHasDownloadSupport] = useState(true);
   const size = useWindowSize();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  useKaleidoscopeCanvas(
+  const isMoving = useKaleidoscopeCanvas(
     canvasRef.current,
     photoData.src,
     size.width,
@@ -54,11 +54,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
       {photoData.src && (
         <img src={photoData.src} alt="" className="hidden" aria-hidden="true" />
       )}
-      <figure
-        className={`h-full w-full relative flex justify-center items-center overflow-hidden ${
-          isLoading ? "opacity-0" : "opacity-100"
-        } transition-opacity duration-500 ease-in-out`}
-      >
+      <figure className="h-full w-full relative flex justify-center items-center overflow-hidden">
         <canvas
           height={Math.max(size.width, size.height)}
           width={Math.max(size.width, size.height)}
@@ -66,7 +62,11 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
           style={maxStyle}
           className="absolute z-10"
         />
-        <figcaption className="absolute right-0 top-0 z-20 flex mt-2 mr-2">
+        <figcaption
+          className={`absolute right-0 top-0 z-20 flex mt-2 mr-2 ${
+            isLoading || isMoving ? "opacity-0" : "opacity-100"
+          } transition-opacity duration-500 ease-in-out`}
+        >
           {hasDownloadSupport && <Download canvasEl={canvasRef.current} />}
         </figcaption>
       </figure>

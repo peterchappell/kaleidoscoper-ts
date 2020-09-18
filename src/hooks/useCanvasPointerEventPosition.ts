@@ -7,7 +7,7 @@ type Position = {
 
 function useCanvasPointerEventPosition(
   canvasEl: HTMLCanvasElement | null
-): Position {
+): [Position, boolean] {
   const [position, setPosition] = useState<Position>({
     x: 0,
     y: 0,
@@ -70,7 +70,7 @@ function useCanvasPointerEventPosition(
     };
   }, [canvasEl, isDragging]);
 
-  return position;
+  return [position, isDragging];
 }
 
 export default useCanvasPointerEventPosition;

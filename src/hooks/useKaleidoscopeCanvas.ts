@@ -25,8 +25,8 @@ function useKaleidoscopeCanvas(
   photoSrc: string,
   width: number,
   height: number
-): void {
-  const mousePosition = useCanvasPointerEventPosition(canvasEl);
+): boolean {
+  const [mousePosition, isMoving] = useCanvasPointerEventPosition(canvasEl);
   const [photoData, setPhotoData] = useState<PhotoData>({
     element: null,
     width: 0,
@@ -272,6 +272,8 @@ function useKaleidoscopeCanvas(
     width,
     height,
   ]);
+
+  return isMoving;
 }
 
 export default useKaleidoscopeCanvas;
