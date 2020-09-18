@@ -31,7 +31,7 @@ const Download: React.FC<Props> = (props: Props) => {
     <div>
       <button
         type="button"
-        className="w-12 h-12 rounded-full bg-black bg-opacity-50 focus:outline-none focus:bg-opacity-75 flex items-center justify-center"
+        className="w-12 h-12 ml-2 rounded-full bg-black bg-opacity-50 focus:outline-none focus:bg-opacity-75 flex items-center justify-center"
         onClick={saveCanvas}
       >
         <DownloadIcon

@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import Download from "./Download";
+import PhotoInfo from "./PhotoInfo";
 import useWindowSize from "../hooks/useWindowSize";
 import useKaleidoscopeCanvas from "../hooks/useKaleidoscopeCanvas";
 
 export type PhotoData = {
   src: string;
   url?: string;
+  author?: string;
+  type?: string;
 };
 
 type MainProps = {
@@ -67,6 +70,7 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
             isLoading || isMoving ? "opacity-0" : "opacity-100"
           } transition-opacity duration-500 ease-in-out`}
         >
+          <PhotoInfo photoData={photoData} />
           {hasDownloadSupport && <Download canvasEl={canvasRef.current} />}
         </figcaption>
       </figure>

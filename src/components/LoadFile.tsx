@@ -30,6 +30,7 @@ const LoadFile: React.FC<Props> = (props: Props) => {
         if (imageSrc && typeof imageSrc === "string") {
           setPhotoHandler({
             src: imageSrc,
+            type: "user",
           });
           setIsLoading(false);
           setError(false);

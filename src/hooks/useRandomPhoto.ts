@@ -42,6 +42,8 @@ function useRandomPhoto(): RandomPhotoHook {
           setPhotoData({
             src: imageSrc,
             url: photoInfo.url,
+            author: photoInfo.author,
+            type: "random",
           });
         }
       }
