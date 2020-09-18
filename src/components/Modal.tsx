@@ -21,7 +21,7 @@ const Modal: React.FC<Props> = (props: Props) => {
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       } fixed top-0 bottom-0 left-0 right-0 z-50 flex items-center justify-center`}
     >
-      <aside className="bg-white rounded-md text-black z-50 max-w-full sm:max-w-sm m-2">
+      <aside className="bg-white rounded-md text-black z-50 m-2 max-w-full sm:max-w-sm">
         <div className="h-full flex flex-col justify-between">
           <div className="overflow-y-auto flex-grow p-4">{children}</div>
           <footer className="flex flex-row justify-end bg-gray-300 p-4 rounded-b-md">
