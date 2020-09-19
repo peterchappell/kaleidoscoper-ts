@@ -53,11 +53,11 @@ const Main: React.FC<MainProps> = (props: MainProps) => {
   }, []);
 
   return (
-    <main className="flex-grow">
+    <main className="flex-grow relative">
       {photoData.src && (
         <img src={photoData.src} alt="" className="hidden" aria-hidden="true" />
       )}
-      <figure className="h-full w-full relative flex justify-center items-center overflow-hidden">
+      <figure className="h-full w-full flex justify-center items-center overflow-hidden absolute">
         <canvas
           height={Math.max(size.width, size.height)}
           width={Math.max(size.width, size.height)}
